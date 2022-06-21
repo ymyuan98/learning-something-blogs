@@ -1,1 +1,2 @@
-# Pitfalls I Fell Into When Configuring the Server
+# Pitfalls I fell into when configuring the server
+
