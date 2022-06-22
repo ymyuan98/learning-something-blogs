@@ -73,5 +73,8 @@ Then, use command:
 
 Then, if successfully installed, a `.sif` file will exist in the path (folder) where we are now.  
 
+> A funny thing is, the docker hub provides an image for rstudio, and also an image of r combined with tidyverse, but no image that combines r with rstudio and tidyverse. What's more surprising is that, the tidyverse pkg cannot be successfully installed to `rstudio.sif`... 
+> So, I am using `tidyverse.sif` instead. 
+
 
  
