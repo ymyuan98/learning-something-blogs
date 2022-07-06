@@ -176,8 +176,9 @@ Use command `qdel <jobid>` to delete the job.
 ```
 cd /path/to/.pbs/file/
 qsub name.pbs           # to submit the job
-qstat -f <jobid>        # to check the status of the job
-qstat -xu $USER         # to check the status of the job
+qstat -f <jobid>        # to check the status of the specific job
+qstat -xu $USER         # to check the status of jobs, including history job submissions
+qstat -u $USER          # to check the status of current running jobs
 qdel <jobid>            # to delete the job
 ```
 
