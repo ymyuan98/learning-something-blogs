@@ -175,11 +175,11 @@ And then use command `qstat -xu $USER` or `qstat -f <jobid>` to check the status
 Use command `qdel <jobid>` to delete the job.
 ```
 cd /path/to/.pbs/file/
-qsub name.pbs           # to submit the job
-qstat -f <jobid>        # to check the status of the specific job
-qstat -xu $USER         # to check the status of jobs, including history job submissions
-qstat -u $USER          # to check the status of current running jobs
-qdel <jobid>            # to delete the job
+qsub name.pbs                 # to submit the job
+qstat -f <jobid>.phsha        # to check the status of the specific job
+qstat -xu $USER               # to check the status of jobs, including history job submissions
+qstat -u $USER                # to check the status of current running jobs
+qdel <jobid>.pbsha            # to delete the job
 ```
 
 **(jobname)\_output.txt** and **(jobname)\_error.txt** will be created and stored under the path where the 
