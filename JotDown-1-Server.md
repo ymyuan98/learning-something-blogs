@@ -257,3 +257,9 @@ cat(args, sep = "\n")                      # print parameters
 arg1 <- args[1]
 arg2 <- as.numeric(args[2])                 # change to numeric number (if applicable)
 ```
+
+If we want to check the status of each job in an array job mission, we can use the following command:
+```
+qstat -t <jobid>[]
+```
+Notice that **[]** refers to the series of jobs. 
