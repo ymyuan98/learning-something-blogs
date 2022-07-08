@@ -45,7 +45,14 @@ After accessing Sockeye, ...
   - File transfer video: https://wgschool.netlify.app/hpc/hpc-02-basics/
   - ARC Sockeye TUD Quick Start Guide: https://confluence.it.ubc.ca/x/Q4MmCg
 
-2. (Frequently used) Globus File Transfer (https://www.globus.org)
+2. sftp (TBC...)  
+```
+## login 
+sftp <cwl>@dtn.sockeye.arc.ubc.ca
+
+```
+
+3. (Frequently used) Globus File Transfer (https://www.globus.org)
 
 
 
@@ -134,7 +141,7 @@ setwd("~/working/directory/")
 For most of the time, we don't need to run R interactively. 
 What we want is to submit a job to the node and let it run the Rscripts. 
 
-So, this is a most ordinary template for a serial `mytest.pbs` file, which should be stored in the `~/scratch/(\<cwl\>/)`:
+So, this is a most ordinary template for a `mytest.pbs` file, which should be stored in the `~/scratch/(\<cwl\>/)`:
 ```
 #!/bin/bash
  
@@ -155,7 +162,7 @@ cd $PBS_O_WORKDIR
  
 (date)
 (hostname)
-singularity exec ~/project/rstudio/r-tidyverse.sif Rscript ~/mytest.R
+singularity exec /path/to/image.sif Rscript /path/to/file.R
 (date)
 
 ```
@@ -186,4 +193,67 @@ qdel <jobid>.pbsha            # to delete the job
 `.pbs` file is stored (because we have `cd`ed to that path before we submit the job).
  
  
+### Advance 3: Run a Series of Jobs (Array Jobs) on the Server
 
+To evaluate the effectiveness of a method in the statistical research, 
+hundreds of thousands of simulations, with only several parameters changed, 
+are usually needed to support the announcement that "our method is superb and groundbreaking!". 
+In this case, a single job script can launch many jobs and change the execution parameters, 
+such as input files, based on the array index within the job.
+After submitting such a job script to the server, we can just wait for those tons of results come flooding back to us!  
+
+Suppose the execution parameters have stored into `params.txt`. 
+Here is an example of a pbs script named `mytest-array.pbs`:
+```
+#!/bin/bash
+ 
+#PBS -l walltime=2:00:00,select=1:ncpus=1:mem=32gb
+#PBS -J 1-18:3
+#PBS -N mytest
+#PBS -A <alloc-code>
+#PBS -m abe
+#PBS -M <cwl>@student.ubc.ca
+#PBS -o mytest_output_^array_index^.txt
+#PBS -e mytest_error_^array_index^.txt
+ 
+################################################################################
+ 
+module load gcc
+module load singularity
+ 
+echo I am job index: $PBS_ARRAY_INDEX
+
+cd $PBS_O_WORKDIR
+
+### Get Array ID
+j=${PBS_ARRAY_INDEX}
+
+### Parameter file to read
+parameter_file="params.txt"
+echo "Parameter file: ${parameter_file}"
+echo
+
+### Read line #j from the parameter file
+PARAMETERS=$(sed "${j}q;d" ${parameter_file})
+echo "Parameters are : ${PARAMETERS}"
+echo
+
+singularity exec /path/to/image.sif Rscript /path/to/file.R ${PARAMETERS}
+
+```
+
+__Key Commands/ Arguments:__(https://confluence.it.ubc.ca/display/UARC/Running+Jobs) 
+- `#PBS -J 1-18:3`: This flag identifies the job as an array job and sets the indexes to be used for the sub jobs. 1-18 in this case gives a range of 1 to 18 for subjob indexes. This range can be any set of positive values to identify the indexes. Following the range there is an optional parameter that can be provided to identify the increment step between each job index. In this case we use 3 so the job indexes will be : 1, 4, 7, ..., 16. If no increment parameter is provided the increment defaults to 1.   
+- `$PBS_ARRAY_INDEX`: During job execution this environment variable will contain the job array index number specific to the subjob. This can be used to map the job execution commands and parameters to the unique components for each sub job.
+- `_^array_index^`: During job submission time the PBS_ARRAY_INDEX environmental variable is not yet initialized. If you need to define the job array index during submission time the macro ^array_index^ can be used and will be replaced on job submission by the array ID. This is particularly useful if you wish to use PBS to control the standard output and error with the -o and -e flags and would like each subjob in the array to write to its own file.
+- `${PARAMETERS}`: As defined by the commands, this argument refers to the *j*-th line from the parameter file (where *j* is substitute for the job array index number announced by command `j=${PBS_ARRAY_INDEX}`). By adding this command to the end of `singularity exec /path/to/image.sif Rscript /path/to/file.R`, the specific parameters (as class *character*) are passed down to the Rscript. 
+
+Accordingly, the Rscript uses the following command to receive the parameters:
+```{r}
+args <- commandArgs(trailingOnly = TRUE)  # as character
+str(args)
+cat(args, sep = "\n")                      # print parameters
+
+arg1 <- args[1]
+arg2 <- as.numeric(args[2])                 # change to numeric number (if applicable)
+```
