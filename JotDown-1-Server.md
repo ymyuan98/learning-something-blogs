@@ -45,14 +45,24 @@ After accessing Sockeye, ...
   - File transfer video: https://wgschool.netlify.app/hpc/hpc-02-basics/
   - ARC Sockeye TUD Quick Start Guide: https://confluence.it.ubc.ca/x/Q4MmCg
 
-2. sftp (TBC...)  
+2. sftp (https://confluence.it.ubc.ca/display/UARC/Data+Transfer)  
 ```
-## login 
-sftp <cwl>@dtn.sockeye.arc.ubc.ca
+sftp <cwl>@dtn.sockeye.arc.ubc.ca.   # login 
+exit                                 # quit sftp
 
+cd path                              # change remote directory to 'path'
+lcd path                             # change local directory to 'path'
+get [-afPpRr] remote [local]         # download remote file to local machine
+put [-afPpRr] local [remote]         # upload local file to remote server
+
+pwd 
+ls [-lafhlnrSt] [path]               # display remote directory listing
+lls [ls-options [path]]              # display local directory listing
+mkdir path                           # create remote directory
+rm path                              # delete remote file
 ```
 
-3. (Frequently used) Globus File Transfer (https://www.globus.org)
+3. Globus File Transfer (https://www.globus.org)
 
 
 
