@@ -258,8 +258,10 @@ arg1 <- args[1]
 arg2 <- as.numeric(args[2])                 # change to numeric number (if applicable)
 ```
 
+Job arrays are marked in the job queue with a '**B**' for 'batch' instead of an '**R**' when running.
 If we want to check the status of each job in an array job mission, we can use the following command:
 ```
 qstat -t <jobid>[]
 ```
-Notice that **[]** refers to the series of jobs. 
+Notice that the square basket **[]** refers to the series of jobs. 
+If we want to specify a certain subjob, we can put the sequence number within **[]** (e.g. `<jobid>[3]`).
