@@ -2,9 +2,10 @@
 
 > Reference:     
 > [1] https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html.     
-> [2] https://stats.stackexchange.com/questions/10501/calculating-aupr-in-r.     
-> [3] https://www.r-bloggers.com/2019/12/how-to-make-a-precision-recall-curve-in-r/. 
+> [2] https://cran.r-project.org/web/packages/precrec/vignettes/introduction.html.  
 
+
+## Introduce Precision and Recall 
 
 Before we introduce the precision and recall, here is a confusion matrix at a certain threshold $\tau$:  
 |        |          | Predicted |          |
@@ -39,3 +40,29 @@ This means that lowering the classifier threshold may increase recall by increas
 It is also possible that lowering the threshold may leave recall unchanged, while the precision fluctuates. 
 
 - Precision-recall curves are typically used in binary classification to study the output of a classifier.  
+
+
+
+## Draw the Precision-Recall Curve and Compute AU-PRC in R
+
+The r-package we use is called `precrec`.   
+
+Here is an instruction of this package: [2] https://cran.r-project.org/web/packages/precrec/vignettes/introduction.html.  
+
+<!-- The `evalmod` function calculates ROC and Precision-Recall curves and returns an S3 object. 
+
+```{r}
+library(precrec}
+
+# Load a test dataset
+data(P10N10)
+
+# Calculate ROC and Precision-Recall curves
+sscurves <- evalmod(scores = P10N10$scores, labels = P10N10$labels)
+```
+
+The `precrec` package proves nine S3 generics for the S3 object created by the `evalmod` function.
+
+ -->
+ 
+ Please study the website carefully (hhhh)
