@@ -14,7 +14,7 @@ Before we introduce the precision and recall, here is a confusion matrix at a ce
 |        | Negative | [$T_n$]   | [$F_p$]  |
 |        | Positive | [$F_n$]   | [$T_p$]  |
 
-- Precision-recall is a useful measure of success of prediction when the calsses are very imbalanced.    
+- Precision-recall is a useful measure of success of prediction when the classes are very imbalanced.    
 
 - **Precision** is a measure of **result relevancy**, while **recall** is a measure of **how many truly relevant results are returned**. 
 Precision is defined as the number of true positive ($T_p$) over the number of predicted positive ($T_p + F_p$).
