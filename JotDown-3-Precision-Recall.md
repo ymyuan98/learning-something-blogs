@@ -20,7 +20,7 @@ Before we introduce the precision and recall, here is a confusion matrix at a ce
 Precision is defined as the number of true positive ($T_p$) over the number of predicted positive ($T_p + F_p$).
 Recall is defined as the number of true positive ($T_p$) over the number of actual positive ($T_p + F_n$). 
 ```math
-\text{Precision} = \frac{T_p}{T_p + F_p}. \\
+\text{Precision} = \frac{T_p}{T_p + F_p},  \\
 \text{Recall} = \frac{T_p}{T_p + F_n}
 ```
 
