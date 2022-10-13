@@ -125,7 +125,7 @@ Therefore, everytime we want to install a new package, or want to library a pack
 ```{r}
 ## Install a Package in R 
 
-.libPaths(~/project/rstudio/Rlibs/)
+.libPaths("~/project/rstudio/Rlibs/")
 .libPaths()                           # check whether the alternative path is specified.
 install.packages("rsvd")              # the package will be installed to the specified path.
 ```
