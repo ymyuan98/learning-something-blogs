@@ -1,7 +1,5 @@
-# How to Configure an R on the Server from Scratch for a Green Hand
+# How to configure an R environment on the server from scratch
 
-> Ooooops forgot to save the edited document...
-> Well, never mind.
 
 Here is my personal experience that help run an Rscript on Sockeye server successfully. 
 
