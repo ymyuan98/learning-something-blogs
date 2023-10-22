@@ -59,6 +59,13 @@ rsync $flags yourUsername@remotehost:/path/to/*pattern* localPath
 rsync [options] source_file_or_directory destination_directory
 ## [options] can be: -avPL
 ```
+**Attention:** if *pattern* contains characters like * or ^ (i.e. globbing), zsh (local terminal) will think you're trying to expand to files in your directory.
+In this case, we may try, for example: 
+```
+#rsync
+rsync -avPL yourUsername@remotehost:"/path/to/*.r" localPath
+```
+
 
 2. sftp (https://confluence.it.ubc.ca/display/UARC/Data+Transfer)  
 ```
