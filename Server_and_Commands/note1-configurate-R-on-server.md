@@ -43,6 +43,23 @@ After accessing Sockeye, ...
   - File transfer video: https://wgschool.netlify.app/hpc/hpc-02-basics/
   - ARC Sockeye TUD Quick Start Guide: https://confluence.it.ubc.ca/x/Q4MmCg
 
+```
+# scp
+scp filename yourUsername@remotehost:/path/to
+scp yourUsername@remotehost:/path/to/filename localPath
+```
+
+```
+# rsync
+flags='-av --progress --delete'
+rsync $flags localPath/*pattern* yourUsername@remotehost:/path/to
+rsync $flags yourUsername@remotehost:/path/to/*pattern* localPath
+
+## general form
+rsync [options] source_file_or_directory destination_directory
+## [options] can be: -avPL
+```
+
 2. sftp (https://confluence.it.ubc.ca/display/UARC/Data+Transfer)  
 ```
 sftp <cwl>@dtn.sockeye.arc.ubc.ca.   # login 
