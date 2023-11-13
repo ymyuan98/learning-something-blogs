@@ -2,8 +2,8 @@
     
 ## Help 
 
-- `man <commandname>`: present the manual help file of <commandname> 
-  - `man /<strings>`: search for the position of <strings> in the manual file  
+- `man command`: present the manual help file of *command*
+  - `man /<strings>`: search for the position of *strings* in the manual file  
 
 - `.`: current position  
 - `..`: one level from the current position  
@@ -13,13 +13,13 @@
 
 - `pwd`: print working directory   
 
-- `cd dirname/`: go to <dirname>...   
+- `cd dirname/`: go to *dirname*...   
   - `cd ..`: return to the one level up from the current position
   - `cd -`: return to the previous position 
 
-- `mkdir dirname`: make a new directory called <dirname>
+- `mkdir dirname`: make a new directory called *dirname*
 
-- `rm -r dirname/`: recursively delete all files and folders under <dirname>
+- `rm -r dirname/`: recursively delete all files and folders under *dirname*
   - `rm -rf dirname/`: delete without asking for confirmation
 
 - `tree`: present the hierarchical structure under the current directory
@@ -30,20 +30,20 @@
 - `ls`: list your files under the current directory  
   - `ls -l`: list your files in 'long format' 
   - `ls -a`: list all your files, including the ones whose filenames begin in a dot (hidden files)  
-  - `ls dirname/`: list files under <dirname>
+  - `ls dirname/`: list files under *dirname*
   - `ls -1  | wc -l`: count files under the current directory, including hidden files (`.` and `..`)
 
 - `re + (tab)`: supplement filename starting with *re* with TAB buttom
 
-- `rm filename/`: delete file with <filename> (see above)
+- `rm filename/`: delete file with *filename* (see above)
   - `rm -i filename/`: require to ask for confirmation before deleting <file> 
   - `rm -f filename/`: attempt to remove the files without prompting for confirmation
 
 - `touch hi.txt`: create <hi.txt> 
 
-- `cat filename`: concatenate, read <filename> 
+- `cat filename`: concatenate, read *filename*
 
-- `vi filename`: edit <filename> using VIM
+- `vi filename`: edit *filename* using VIM
   - press `i` to start editing file
   - press `(esc) + :wq` to exit editing with changes saved  
   - press `(esc) + :q` to exit editing without saving changes 
@@ -54,7 +54,7 @@
   
 - File compression (tar)
   - `tar -zcvf file.tar.gz /path/to/filename`: compress a single file 
-  - `tar -zcvf file.tar.gz /path/to/dir/`: compress an entire <directory> into <file.tar.gz>
+  - `tar -zcvf file.tar.gz /path/to/dir/`: compress an entire *dir* into *file.tar.gz*
   - `tar -zcvf file.tar.gz dir1 dir2 dir3`: compress multiple directories
 
 
