@@ -1,4 +1,4 @@
-# Learning Note: Precision-Recall and its Application in R
+# STAT: Precision-Recall and its Application in R
 
 > Reference:     
 > [1] https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html.     
