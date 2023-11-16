@@ -5,7 +5,7 @@ R Package (self-learning): `data.table` - Introduction
 Tutorial website:
 <https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html>
 
-(I copied the contents in the vignette to teach myself, thus the
+> (I copied the contents in the vignette to teach myself, thus the
 following contents are basically the same as those in the vignette.)
 
 ``` r
