@@ -39,7 +39,7 @@ Tutorial websites: https://slurm.schedmd.com/tutorials.html
 
 -------------------------------------------
 
-## An template of a `.sh` file to place (an array of) jobs
+## A template of a `.sh` file to place (an array of) jobs
 
 The contents are similar to a `.pbs` file:
 
@@ -47,6 +47,7 @@ The contents are similar to a `.pbs` file:
 #!/bin/bash -l
 #SBATCH --time=1:00:00
 #SBATCH --nodes=1
+#SBATCH --cpus-per-task 8     ## Controls the number of CPUs allocated per task
 #SBATCH --job-name=test_jobs
 #SBATCH --output=out.log
 #SBATCH --error=err.log
@@ -64,9 +65,8 @@ jobid=${SLURM_ARRAY_TASK_ID}
 param_file="./tests/params.txt"
 
 ## Read line #jobid from the parameter file
-PARAMETERS=$(sed "${jobid}q;d" ${param_file})
+PARAMETERS=(sed "(sed "{jobid}q;d" ${param_file})
 echo "Parameters: ${PARAMETERS}"
 
 Rscript --vanilla ~/path/to/file/mytest.r ${PARAMETERS}
 ```
-
