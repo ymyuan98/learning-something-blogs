@@ -23,7 +23,7 @@ then run
 ```{bash}
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
-to install it. 
+to **install** it. 
 This allows us to use the conda command to create virtual environments.
 Press **yes** when asked a question like "Do you wish to initialize Miniconda3?".
 By default, Miniconda will be installed under your (user) home directory. 
