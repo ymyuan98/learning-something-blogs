@@ -1,16 +1,17 @@
 # How to Create and Use a Virtual Environment on a Remote Server
 
-Recently I need to install and run the package [`scarlink`](https://github.com/snehamitra/SCARlink), which is developed for multi-omics data (scATAC-seq and scRNA-seq) analysis. 
-Since the multiomics data are usually large in size, it is not a good idea to run it on my local laptop. 
+Recently, I needed to install and run the package [`scarlink`](https://github.com/snehamitra/SCARlink), 
+which is developed for multi-omics data (scATAC-seq and scRNA-seq) analysis. 
+Since the multiomics data are usually large in size, it is not a good idea to run them on my local laptop. 
 Therefore, I would like to install the package on a remote server. 
 To do this, I need to create a virtual environment for the use of `scarlink`. 
-However, a virtual environment cannot be created by 
+However, a virtual environment cannot be created by directly running
 ```
 conda create -n scarlink_env
 ```
-because conda commaned does not exit under my account. 
+because `conda` command does not exist under my account. 
 
-Here are the steps I use, as suggested by claude-code:
+Here are the steps I use, as suggested by Claude-code:
 
 ## Step 1: If `conda` doesn't exist, install Miniconda (no sudo needed)
 In bash (terminal), run
@@ -43,7 +44,7 @@ conda create -n scarlink_env python=3.9
 ```
 This creates a virtual environment named `scarlink_env` with Python version 3.9. 
 
-If we want to want to create a virtual environment with other version of Python, just need to change the version number. 
+If we want to create a virtual environment with another version of Python, just need to change the version number. 
 
 Or, if we want to install other programming languages, such R, we can run:
 ```{bash}
@@ -58,18 +59,18 @@ In bash (terminal), run:
 ```{bash}
 conda activate scarlink_env
 ```
-Now, `(scarlink_env)` would be appear before `username@host`.
+Now, `(scarlink_env)` would appear before `username@host`.
 This indicates that the virtual environment `scarlink_env` is activated.
 
 From now on, any packages installed in `scarlink_env` would not affect other virtual environments or the base environment. Great!
 
 ## Step 4: Install the package `scarlink` and its dependencies
 Now, we can install the package `scarlink` and its dependencies in the virtual environment `scarlink_env`
-by following the instructions in the Github page...
+by following the instructions in the GitHub page...
 
-Notice! The required packages of `scarlink` requires Python version >= 3.9, which is inconsistent of the instruction page of `scarlink` that suggests to install Python version 3.8. 
+Notice! The required packages of `scarlink` require Python version >= 3.9, which is inconsistent with the instruction page of `scarlink` that suggests installing Python version 3.8. 
 
-> The `scarlink` package, I guess, is mainly designed for Linux system, as installing it on the Linux system is much much easier than on MacOS system. It makes sense, because usually the multi-omics data are large in size, and Linux server is more suitable for handling large data.
+> The `scarlink` package, I guess, is mainly designed for Linux systems, as installing it on a Linux system is much much easier than on MacOS system. It makes sense because usually the multi-omics data are large in size, and a Linux server is more suitable for handling large data.
 
 After installing all the packages, we can run `scarlink` package in this virtual environment! 
 
@@ -79,7 +80,7 @@ When finishing the tasks in the virtual environment, we can deactivate it by run
 conda deactivate
 ```
 This returns us to the base environment. 
-The prefix `(scarlink_env)` before `username@host` would disappear, indicating that we have exited the virtual environment `scarlink_env` and has returned back to `(base)`.
+The prefix `(scarlink_env)` before `username@host` would disappear, indicating that the virtual environment `scarlink_env` has been exited and has returned to `(base)`.
 
 ## Step 6: Remove the virtual environment (if needed)
 If we no longer need the virtual environment, we can remove it by running:
@@ -100,13 +101,16 @@ conda env list
 This lists all the virtual environments created by conda.
 
 
-## Step 7: More additional notes 
-Thanks to internet and vibe-coding tools, now we don't need to memorize so much commands. Just check! 
-But one thing I am clear now is that, we don't need *sudo* authorization to create virtual environments, or even using conda commands. 
-What we need to do is just to install Miniconda first under our user home directory.
+## Step 7: More than additional notes 
+Thanks to the internet and vibe-coding tools, now we don't need to memorize so many commands. Just check! 
+But one thing I am clear about now is that we don't need *sudo* authorization to create virtual environments, or even to use conda commands. 
+What we need to do is just install Miniconda first under our user home directory.
 
 
 Finished!
+
+BTW, this file is generated with the help of _Claude-code_ and _Copilot_, 
+of which the former provides help in the coding part when I was indeed setting up the environment, and the latter provides help in generating text when I was editing this file in VS Code. 
 
 
 
