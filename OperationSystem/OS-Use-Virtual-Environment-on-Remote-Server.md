@@ -16,22 +16,24 @@ Here are the steps I use, as suggested by Claude-code:
 ## Step 1: If `conda` doesn't exist, install Miniconda (no sudo needed)
 In bash (terminal), run
 ```{bash}
-# Download the Miniconda installer script
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-
-# Install it
+```
+to **download the Miniconda installer script**,
+then run 
+```{bash}
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
-This allows us to use conda command to create virtual environments.
+to install it. 
+This allows us to use the conda command to create virtual environments.
 Press **yes** when asked a question like "Do you wish to initialize Miniconda3?".
 By default, Miniconda will be installed under your (user) home directory. 
 
 Then, close the current terminal and open a new terminal to make the conda command available.
-Or, we can run
+Or, to make the conda command available in the current terminal, we can run
 ```{bash}
 source ~/.bashrc
 ```
-instead to make the conda command available in the current terminal. 
+instead. 
 
 From now on, we can use the `conda` command to create virtual environments without sudo authorization!
 
