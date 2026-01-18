@@ -1,0 +1,97 @@
+---
+title: "Studying SHAP"
+author: "Ming Yuan"
+format: html
+editor: visual
+---
+
+## SHAP (SHapley Additive exPlanations)
+
+-   A method for **explaining** machine learning method **predictions**.
+
+Core problem:
+
+-   I have trained model that predicts something (like gene expression). I would like to know:
+
+    -   Which features contributed most to a prediction?
+
+    -   How much did each feature contribute?
+
+### Shapley value: Foundation
+
+From cooperative game theory (Lloyd Shapley).
+
+**Analogy:** imagine a team of players winning a prize. How do you fairly distribute the prize based on each player's contribution?
+
+**Shapley's solution**: Look at all possible coalitions (subsets) of players and see how much each player adds when they join.
+
+-   **Players** = features (X, e.g. in SCARlink: the 500 bp tiles)
+
+-   **Prize** = model prediction (Y, e.g. gene expression value)
+
+-   **Question**: how much does each feature contribute to the prediction?
+
+#### Mathematical idea:
+
+For feature $i$, the Shapley value is:
+
+$$
+\phi_i = \frac{1}{|F|} \sum_{S \subset F \backslash{\{i\}}} \frac{|S|!(|F|-|S|-1)!}{(|F|-1)!} [f(S \cup \{i\}) - f(S)]
+$$
+
+$$
+= \sum_{S \subset F \backslash{\{i\}}} \frac{|S|!(|F|-|S|-1)!}{|F|!} [f(S \cup \{i\}) - f(S)]
+$$
+
+$$
+= \frac{1}{(|F|-|S|)}\sum_{S \subset F \backslash{\{i\}}} \frac{|S|!(|F|-|S|)!}{|F|!} [f(S \cup \{i\}) - f(S)]
+$$
+
+where
+
+-   $F$= set of all features
+
+-   $S$ = a subset of features *not including* $i$
+
+-   $f(S)$ = model prediction using only features in set $S$.
+
+-   $f(S\cup \{i\}) - f(S)$ = marginal ***contribution*** of feature $i$ when added to subset $S$; how much does adding feature $i$ improve/change the prediction?
+
+-   $\frac{k!(N-k)!}{(N)!} = \left(C^{k}_{N}\right)^{-1}$ = inverse of combination of "$N$ choose $k$ " - a fair compensation. Here, let $N=|F|$ and $k = |S|$.
+
+Translation: Average the marginal contribution of feature $i$ across all possible combination of other features.
+
+**Why this is "fair"?**
+
+1.  **Efficiency**: all *contributions* sum to the total prediction, i.e., the total prediction is completely distributed among the features
+    -   $$
+        \sum_{i}^{|F|} \phi_i = f(F) - f(\emptyset)
+        $$
+
+    -   Proofs ... please check online. A very ingenious and skillful proof!
+
+    -   Consider all possible **orderings** of features being added.
+
+    -   For each ordering, track how much feature contributes when it is added.
+
+    -   Averaging these contributions across all orderings...
+2.  **Symmetry**: if two features contribute equally, they get equal credit
+3.  **Dummy**: If a feature doesn't help, it gets zero contribution
+4.  **Additivity**: *contributions* are additive across models
+    -   If you have two separate models and combine them, the Shapley values should add up
+
+    -   Mathematically, if you have two models $f$ and $g$, then:
+
+        $$
+        \phi_i^{f+g} = \phi_i^{f} + \phi_i^{g}
+        $$
+
+    -   where
+
+        -   $\phi_i^{f}$ = Shapley value of feature $i$ in model $f$.
+
+        -   $\phi_i^g$ = Shapley value of feature $i$ in model $g$.
+
+        -   $\phi_i^{f+g}$ = Shapley value of feature $i$ in the combined model $f+g$.
+
+    -   Meaning: if you decompose your model into parts, you can analyze each part separately and the contributions add up linearly.
