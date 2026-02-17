@@ -1,0 +1,78 @@
+---
+title: "Causal Inference 1: Brief Overview"
+date: today
+format: html
+---
+
+## RCT and observational studies
+
+-   **Randomized controlled trials (RCTs)** are considered the gold standard for establishing causal relationships due to randomization. By randomly assigning patients to either treatment or control groups, RCTs balance the distributions of both observed and unobserved confounders across groups, and thus minimizes confounding bias. Therefore, any differences in outcome between the treatment and control groups are likely due to the treatment effect.
+
+-   **However, RCTs can be expensive, time-comsuming, and sometimes ethically or practically infeasible. Additionally, RCTs often have strict inclusion/exclusion criteria, which may limit the generalizability of their findings to broader patient populations.**
+
+-   **Observational studies**, on the other hand, do not involve random assignment, or in other words, the treatment assignment is more influenced by patient characteristics, physician preferences, and some other factors. As a result, the observational studies are more likely to be affected by confounding bias, making it challenging to establish causal relationships.
+
+-   Nevertheless, observational studies can provide valuable insights into real-world treatment effects. They usually include a more diverse patient population and reflect routine clinical practice, which can enhance the generalizability of findings.
+
+## Potential outcomes framework and identification assumptions
+
+-   The **potential outcomes framework** (also known as the Neyman-Rubin causal model) is a widely used approach to define and analyze causal effects.
+
+-   In this framework, each individual has two potential outcomes: one that would occur if they receive the treatment (Y(1)) and another that would occur if they do not receive the treatment (Y(0)).
+
+-   The causal effect for an individual is defined as the difference between these two potential outcomes: Y(1) - Y(0). However, we can only observe one of these outcomes for each individual, leading to the fundamental problem of causal inference.
+
+To identify causal effects from observational data, several **key identification assumptions** are typically listed:
+
+(1) **Consistency**: The observed outcome for an individual under a specific treatment is equal to the potential outcome for that treatment. In other words, if an individual receives treatment A, then their observed outcome Y is equal to Y(1).
+
+(2) **Exchangeability (or No unmeasured confounding)**: Given a set of observed covariates (U), the potential outcomes are independent of the treatment assignment. This means that, after adjusting for U, the treatment and control groups are comparable in terms of their potential outcomes.
+
+(3) **Positivity (or Overlap)**: For every combination of covariates (U), there is a positive probability of receiving each treatment level. This ensures that we have sufficient data to estimate the causal effect across all levels of U.
+
+(4) **Stable Unit Treatment Value Assumption (SUTVA)**: The potential outcomes for any individual are not affected by the treatment assignments of other individuals. This means there are no interference effects between individuals.
+
+## Basic concepts in causal inference
+
+-   **Average Treatment Effect (ATE)**: The average **difference in potential outcomes** between the treatment and control groups across the entire population. It is defined as E\[Y(1) - Y(0)\].
+
+-   **Confounder**: a variable that is associated with both the treatment and the outcome, potentially distorting the causal relationship between them.
+
+-   **Collider**: a variable that is influenced by two other variables. Conditioning on a collider opens a backdoor path and can introduce "selection bias".
+
+-   **Mediator**: a variable that lies on the causal pathway between the treatment and the outcome. Adjusting for mediators can block part of the causal effect we aim to estimate.
+
+-   **Effect modifier**: a variable that modifies the effect of the treatment on the outcome. The treatment effect may differ across levels of the effect modifier. It is a factor indicating the **heterogeneity of treatment effects**.
+
+## Commonly used tools in causal inference
+
+These tools are usually designed for adjusting for confounding bias in observational studies.
+
+### Propensity score matching (PSM)
+
+### Inverse Probability weighting (IPW)
+
+-   The idea of IPW is to create a **pseudo-population** in which the treatment assignment is independent of the observed covariates.
+-   It is achieved by weighting each individual by the inverse of probability of being assigned to the treatment they actually received, given their covariates.
+-   In this way, individuals that are underrepresented in the treatment group (i.e., those with a low probability of receiving the treatment they actually received) are given more weight, while those that are overrepresented are given less weights.
+-   The average treatment effect can then be estimated as the weighted average of outcomes in the treatment and control groups.
+
+### Overlap weighting
+
+-   Overlap weighting is a specific type of propensity score weighting that focuses on the subpopulation where treatment groups have the most overlap in covariate distributions.
+
+-   In overlap weighting, individuals are weighted based on the probability of receiving the opposite treatment. Specifically, individuals in the treatment group are weighted by the probability of not receiving the treatment, while individuals in the control group are weighted by the probability of receiving the treatment.
+
+-   This approach emphasizes individuals who have a high probability of receiving either treatment.\
+
+-   Overlap weighting can lead to more precise estimates of treatment effects, especially when there is limited overlap in covariate distributions between treatment groups.
+
+-   Nevertheless, there is an underlying assumption if using the overlap weighting method to estimate the treatment effect: the treatment effect is assumed to be homogeneous across the entire population. If this assumption is violated, then the estimand is not the average treatment effect (ATE) in the overall population, but rather a average treatment effect of the subpopulation defined by the overlap weights.
+
+-   To some extent, it can be viewed as a limitation of the overlap weighting: we should be cautious when generalizing the findings from the overlap-weighted subpopulation to the overall population.
+
+-   It is also provides more stable estimates because there are no extreme weights, unlike IPW where individuals with very low probabilities of receiving their actual treatment can receive very large weights.
+
+### G-computation
+
+### Standardization

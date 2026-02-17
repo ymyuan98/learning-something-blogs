@@ -1,0 +1,88 @@
+---
+title: "Basic Statistics Concepts"
+date: today
+format: html
+---
+
+## 1. Null hypothesis and alternative hypothesis
+
+-   **Null hypothesis (H0)**: There is no effect or no difference, or no relationship between variables.
+    -   It represents the "status quo" and is the statement that researchers typically seek to "disapprove" or reject.
+-   **Alternative hypothesis (H1 or Ha)**: There is a statistically significant effect, difference, or relationship between variables.
+    -   It is usually the statement that researchers hope to support.
+
+## 2. P-value
+
+-   **Definition**: The p-value is the probability of observing data at least as extreme as the observed data, assuming the null hypothesis is true.
+
+-   **Interpretation**:
+
+    -   If the p-value is less than a predetermined significance level (i.e., commonly set $\alpha = 0.05$), it suggests that the observed data is unlikely to have occured under the null hypothesis, and thus there is sufficient evidence to reject the null hypothesis and in favor of the alternative hypothesis.
+    -   On the other hand, if the p-value is greater than the significance level, then there are no enough evidence to show that the current observed event is unlikely to happen under the null hypothesis, and thus we fail to reject the null hypothesis.
+
+-   **Limitations**:
+
+    -   The p-value does not provide the probability of the null hypothesis being true or false, neither does it indicate the probability of the alternative hypothesis being true.
+    -   Besides, the p-value is sensitive to sample size; even if there is a small effect, a large sample size can lead to a statistically significant p-value.
+    -   Nevertheless, the p-value does not reflect the effect size.
+    -   Moreover, it is dangerous to make conclusion only based on the p-value and the significance level. For example, it is wrong to treat $p=0.049$ as "significance" and $p=0.051$ as "not significance" when they are practically identical. We should consider the estimated effect size and the confidence intervals as well to make conclusions.
+
+## 3. Statistically significant vs Scientifically/practically significant
+
+-   **Statistically significant**: from a statistical perspective, "statistically significant" means that the observed data is unlikely to have occurred under the null hypothesis, i.e., the p-value is smaller than the significance level. It relies on data, sample size, and statistical tests to reject the null hypothesis, ensuring the effect is replicable and not due to random chance.
+
+-   **Scientifically significant**: from a practical or scientific perspective, "scientifically significant" refers to the magnitude or importance of that effect in the real world. Or in other words, this is a concept relating to whether the finding matters in a practical context, regardless of its statistical significance.
+
+-   A result can be scientifically significant but not statistically significant due to a small effect size or inefficient sample size.
+
+-   Conversely, a result can be statistically significant but not scientifically significant, especially in a large dataset where even a small effect can yield a low p-value.
+
+## 4. Confidence interval, credible interval, and prediction interval
+
+-   **Confidence interval (CI)**: it is a frequentist concept. A confidence interval provides a range of values that is likely to contain the true population parameter with a certain level of confidence.
+    -   For example, a 95% confidence interval is constructed such that over many repeated samples, 95% of the calculated confidence intervals will cover the true (but unknown) population parameter.
+    -   In the context of frequentist, the population parameter is *fixed but unknown*, while the confidence interval is random and changes from sample to sample.
+-   **Credible interval**: it is a Bayesian concept. A 95% credible interval is the range where we believe the true parameter lies in this interval with probability 95%, given the observed data and our prior beliefs.
+    -   In the context of Bayesian statistics, the *population parameter* is random and has a probability distribution, and the credible interval is fixed once the prior distribution is specified and data is observed.
+-   **Prediction interval**: it is still a frequentist concept. A prediction interval estimates the range where a future individual observation will fall, not where the population parameter lies.
+    -   It accounts for both the uncertainty in estimating the population parameter and individual variability around that parameter.
+    -   Therefore, given the same level, a prediction interval is usually wider than a confidence interval.
+    -   The interpretation is: "we expect that the future observation will fall within this interval with a certain level of confidence (e.g. 95%)".
+-   *In Pharma*,
+    -   confidence intervals are most commonly used in clinical trials for treatment effects, regulatory submissions, and primary endpoint analyses.
+    -   credible intervals are more often used in Bayesian clinical trials, especially for adaptive designs or when incorporating prior knowledge from earlier studies.
+    -   prediction intervals are less commonly used; but it is useful for forecasting individual patient responses, understanding clinical heterogeneity, and in pharmacokinetic/pharmacodynamic (PK/PD) modeling to predict drug concentrations in individual patients.
+
+## 5. Type-I, Type-II errors, and Statistical power
+
+-   **Type I error (False positive)**: occurs when we falsely reject the null hypothesis when it is actually true; in other words, we conclude an effect when it does not exist.
+    -   The probability of making a Type I error is denoted by the significance level $\alpha$, which is typically set as 0.05.
+    -   In drug development, it means we approve an ineffective drug, which is a serious concern.
+-   **Type II error (False negatives)**: occurs when we fail to reject the null hypothesis when the alternative hypothesis is actually true; in other words, we miss an effect that actually exists.
+    -   The probability of making a Type II error is denoted by $\beta$.
+    -   In drug development, it means we fail to approve an effective drug.
+-   **Statistical power** is defined as $1-\beta$, which represents the probability of successfully rejecting the null hypothesis when the alternative hypothesis is true.
+    -   In drug development, statistical power is the probability of approving an effective drug.
+
+## 6. Interpretation of Bayesian statistics
+
+## 7. Multiple testing and Type-I error control
+
+When conducting multiple statistical comparisons, it is likely to inflate Type I error (false positives). Therefore, we need to avoid the inflation of type I error.
+
+The primary methods includes:
+
+-   **Bonferroni correction**: set the new significance level by dividing the original significance level by the total number of tests, for example, if originally the significance level is $\alpha = 0.05$ and $m=10$ tests are performed, then only p-values below $0.005$ are considered significance. It is a simple but conservative method that controls the family-wise error rate (FWER).
+
+-   **Holm-Bonferroni** ethod: order p-values from smallest to largest and apply adjusted thresholds ( $\alpha / m, \ \alpha / (m-1)$, etc.) until a test fails to be significant, at which point all subsequent tests are not significant.
+
+-   **Benjamini-Hochberg procedure**: a statistical method to control the false discovery rate (FDR). It offers a less conservative approach than methods like Bonferroni, allowing for more discoveries (true positives) while maintaining a specified FDR level.
+
+    1.  Order p-values: rank the $m$ p-values from $m$ independent tests from smallest to largest $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}$.
+    2.  Select FDR $(\alpha)$, i.e., type-I error: choose the desired false discovery rate, e.g., $\alpha = 0.05$.
+    3.  Find critical values: find the largest index such that $p_{(k)} \leq \frac{k}{m} \alpha$.
+    4.  Reject hypotheses: reject all null hypotheses $H_{i}$ for $i = 1, \ldots, k$.
+
+> Why Bayesian variable selection method does not directly care about FDR?
+>
+> A: Bayesian approaches compute posterior inclusion probabilities (PIPs), which is the probability that each variables belongs in the model given the data. It implicitly control something analogous to FDR through the prior and posterior. For example, we select variables if their PIPs are above 0.9. It implicitly refers that based on our believe,

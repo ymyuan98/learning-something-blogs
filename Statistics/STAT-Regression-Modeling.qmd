@@ -1,0 +1,154 @@
+---
+title: "Regression and Modeling"
+date: today
+format: html
+---
+
+## 1. Linear regression
+
+-   **Definition**: Linear regression is a statistical method used to model the relationship between a dependent variable (outcome) and one or more independent variables (predictors) by fitting a linear equation to observed data.
+
+$$
+y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + ... + \beta_p x_{ip} + \epsilon_i, \quad \epsilon_i \overset{\text{iid}}{\sim} N(0, \sigma^2)
+$$
+
+-   **Assumptions**:
+    1.  **Linearity**: The relationship between the independent and dependent variables is linear.
+        -   Check: (residual plots) scatter plot of residuals vs fitted values - the dots should scatter randomly around the horizontal line at 0 without any specific patterns.
+    2.  **Independence**: Observations are independent of each other.
+        -   Check: (residual plots) scatter plot of residuals vs fitted values - the dots should not follow any non-random patterns; or Durbin-Watson statistic for autocorrelation in residuals.
+    3.  **Homoscedasticity**: Constant variance of residuals across all populations.
+        -   Check: (residual plots) scatter plot of residuals vs fitted values - the spread of the dots should be roughly constant across all fitted values (no funnel shape)
+    4.  **Normality**: The residuals should be normally distributed.
+        -   Check: Q-Q plot of residuals - the dots should fall approximately along the 45-degree reference line.
+-   How to check **multicollinearity**?
+    -   Variance Inflation Factor (VIF): A VIF value greater than 5 or 10 indicates a problematic amount of multicollinearity.
+-   How to deal with multicollinearity?
+    -   Remove highly correlated predictors.
+    -   Combine correlated predictors into a single predictor (e.g., using Principal Component Analysis).
+    -   Use regularization techniques like Ridge or Lasso regression.
+
+## 2. Logistic regression
+
+-   **Definition**: Logistic regression is a statistical method used to model the relationship between a **binary dependent variable (outcome)** and one or more independent variables (predictors) by estimating the probability of the outcome occurring.
+
+$$
+\log \frac{p_i}{1-p_i} = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip}, 
+$$
+
+where
+
+$$
+p_i := \operatorname{Pr}(Y_i=1) = \mathbb{E}[Y_i=1].
+$$
+
+-   Definition of **odds**: $$
+    \text{Odds}(\operatorname{Pr}(Y_i = 1)) = \frac{p_i}{1-p_i}.
+    $$
+
+-   Interpretation of coefficients:
+
+    -   $\beta_j$: The log-odds change in the outcome for a one-unit increase in the $j$-th predictor variable, holding all other predictors constant.
+    -   E.g. If $\beta_1 = 0.5$ for a variable $X_1$, then one-unit increase in $X_1$ is associated with an expected increase by a factor of $exp(0.5)=1.65$ in the **odds** of the outcome occurring (or, is associated with an expected 0.5 increase in the log-odds of the outcome), holding all other predictors constant.\
+    -   $\exp(\beta_j)$ actually represents the **odds ratio** associated with a one-unit increase in the $j$-th predictor variable, holding all other predictors constant.
+
+-   Diagnostics: Check possible over-dispersion:
+
+    -   If $y_i$ follows a Bernoulli distribution, then $\operatorname{Var}(y_i) = p_i(1-p_i)$.
+    -   If the variation in the data is larger (or smaller) than the theoretical variance, then over-dispersion (or under-dispersion) may be present.
+
+## 3. Poisson regression
+
+## 4. Survival analysis and Cox proportional hazards model
+
+-   When to use: Survival analysis is used when the outcome is **time-to-even data**, especially when there is censoring.
+
+-   Censoring occurs when the event happens after the study ends, or the patient is lost to follow-up, or they experience a competing event that prevents the event of interest from occurring.
+
+-   This type of outcome is common in oncology for overall survival or progression-free survival.
+
+-   **Hazard**: the instantaneous risk or rate of an event (such as death, failure, or disease recurrence) occuring at a specific time $t$, given that the subject has survived up to that time.
+
+    -   Hazard rate ( $h(t)$ ): Defined as the probability an event occurs in a very small time interval, given survival up to that moment.
+
+    -   Hazard function: analyzes the likelihood of an event over time, where a higher rate indicates more frequent events.
+
+    -   **Hazard ratio (HR)**: compares the hazard rates of two groups (e.g. treatment vs control).
+
+-   **Kaplan-Meier curves** estimate survival probabilities over time and compare groups via **log-rank test**.
+
+    -   The *null hypothesis* of the log-rank test is: there is **no difference in survival** between the groups for all time.
+
+-   Key assumption of **log-rank test**:
+
+    (1) **Proportional hazards (most important)**: the hazard ratio between groups is constant over time; If two KM curves cross, then the proportional hazard may not hold. If so, the log-rank test may not be appropriate.
+    (2) Independent censoring: the censoring is unrelated to the probability of experiencing the event.
+    (3) Independent observations: each patient's survival time is independent of others.
+
+-   **Cox proportional hazards regression** models the hazard rate while *adjusting for covariates*.
+
+    -   Wish to determine if the variation in subjects' survival experiences may be *partially explained by covariates*.
+
+$$
+h_i(t) = h_0(t) \exp(\beta_1 x_{i1} + \beta_2 x_{i2} + ... + \beta_p x_{ip}) = h_0(t) \exp(x_i^T \beta),
+$$
+
+where $h_0(t)$ is the unspecified baseline hazard function, $\beta$ is a vector of unknown regression parameters, and $x_i$ is a vector of covariates.
+
+Or,
+
+$$
+S_i(t) = \exp\left(-\int_0^t h_i(s) ds\right) = \exp\left(-\int_0^t h_0(s) \exp(x_i^T \beta) ds\right) 
+$$
+
+$$
+= S_0(t)^{\exp \left(x_i^T \beta \right)}.
+$$
+
+where
+
+$$
+S_0(t) = \exp \left(-\int_0^t h_0(s) ds \right)
+$$
+
+-   No distributional assumption is made for the survival data. It is a **semi-parametric** model.
+
+-   The assumption in this model is that the **harzard ratio** $h_i(t) / h_0(t)$ **is constant over time**, i.e., **proportional hazards assumption**.
+
+-   **Accelerated failure time (AFT) model** is an alternative to Cox model when the **proportional hazards assumption is violated**.
+
+    -   AFT models directly model the survival time instead of the hazard function.
+    -   It assumes that covariates accelerate or decelerate the life course by some constant factor.
+    -   Common distributions used in AFT models include **Weibull, Gumbel, log-normal, and log-logistic distributions**.
+
+## 5. Longitudinal data analysis
+
+-   Applied to longitudinal data (panel data): repeated measurements on each individual over time are typically correlated:
+
+    -   The **within-individual repeated measurements** are **correlated**.
+
+    -   The **between-individual data** are assumed to be **independent**.
+
+    -   Variations are generally from two sources: within and between variations.
+
+    -   Data are usually unbalanced: the number of repeated measurements vary across individuals, e.g. dropout.
+
+-   Mixed-effect models: linear mixed-effect models, non-linear mixed-effect models, etc.
+
+-   Generalized estimating equation (GEE) models.
+
+## 6. ANOVA and ANCOVA
+
+-   **ANOVA**: A statistical method used to compare the means of three or more independent groups to determine if at least one group mean is significantly different from the others.
+
+    -   Analyzes the ratio of between-group variance to within-group variance, usually via an F-test, to determine if differences are due to, for instance, a treatment rather than random chance.
+
+    -   One-way ANOVA: uses one independent variable to compare groups.
+
+    -   Two-way ANOVA: uses two independent variables to examine their main effects and interaction.
+
+-   **ANCOVA (analysis of covariance)**: a statistical test combining ANOVA and regression, used to compare group means on a dependent variable while statistically controlling for the effect of other continuous variables (covariates), which helps increase statistical power and reduce error variance, allowing for more precise comparisons of adjusted means.
+
+    -   It "adjusts" group means for baseline difference or other influences ...
+
+-

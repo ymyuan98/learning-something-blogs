@@ -1,0 +1,107 @@
+---
+title: "Biostatistics, Clinical Trials and Observational Studies(?)"
+date: today
+format: html
+---
+
+## Phase I, Phase II, and Phase III and Phase IV clinical trials
+
+-   **Phase I** clinical trials: These trials are the first stage of testing in human subjects. They primarily focus on *evaluating the **safety**, tolerability, pharmacokinetics, and pharmacodynamics* (dose-finding) of a new drug or treatment. Phase I trials typically *involve a small number of healthy volunteers* or patients (20-100) and aim to *determine the **appropriate dosage range** and **identify any potential side effects***.
+
+-   **Phase II** clinical trials: These trials are conducted to *assess the **efficacy** and further evaluate the **safety*** of the drug or treatment. Phase II trials usually involve a larger group of patients who have the condition that *the drug is intended to treat*. The primary goal is to *determine whether the drug has a therapeutic effect and to further evaluate its safety profile*. Usually has larger groups (100-300 patients)?
+
+    -   **Single-arm trials**: All participants receive the experimental treatment. These trials are often used in early-phase studies to gather preliminary data on the treatment's efficacy and safety.
+    -   Randomized controlled trials (RCTs): Participants are randomly assigned to either the experimental treatment group or a control group (which may receive a placebo or standard treatment). RCTs are considered the gold standard for evaluating treatment efficacy.
+
+-   **Phase III** clinical trials (**confirmatory trials**): These trials are large-scale studies designed to **confirm the efficacy and monitor the adverse reactions** of the drug or treatment in a broader patient population . Phase III trials typically involve **hundreds to thousands of patients** and are often conducted across **multiple centers**. The primary goal is to **provide robust evidence of the drug's effectiveness and safety** to support regulatory approval. (300 - 3000+ pateints, compared to standard treatment)
+
+    -   Almost always RCTs.
+    -   Can be single-arm or non-randomized in specific situations (e.g., rare diseases).
+
+-   **Phase IV** clinical trials (**post-marketing surveillance**): These trials are conducted after a drug or treatment has been approved for use by regulatory authorities. Phase IV trials aim to **monitor the long-term safety and effectiveness** of the drug in real-world settings. They may also explore additional indications, dosing regimens, or patient populations. Phase IV trials can provide valuable information on rare adverse events and help optimize the use of the drug in clinical practice.
+
+## Adaptive clinical trials
+
+## Intention-to-Treat (ITT) vs Per-protocol (PP) analysis
+
+(1) **Intention-to-Treat (ITT)** analysis:
+
+-   Analyze all randomized participants in the groups they were originally assigned to, regardless of whether they actually received the treatment, whetehr they completed the study, or protocol deviations.
+
+-   Benefits:
+
+    -   Preserves randomization
+    -   Reflects real-world effectiveness
+    -   Reduce bias
+    -   Generally required by regulatory agencies
+
+-   Challenges:
+
+    -   May dilute treatment effects
+    -   Requires handling missing data appropriately.
+
+(2) **Per-protocol (PP)** analysis:
+
+-   Analyze only paritipants who completed the study according to protocol.
+
+## Primary endpoint vs Secondary endpoint
+
+## Surrogate endpoint vs Clinical endpoint
+
+## Target Trial Emulation (TTE)
+
+## Randomization vs Blinding
+
+## Sample size calculation:
+
+Key components:
+
+(1) **Effect size** ($\Delta$): the magnitude of the difference or association that the study aims to detect.
+
+(2) **Significance level** ($\alpha$): the probability of making a Type I error (rejecting a true null hypothesis).
+
+(3) **Power** ($1 - \beta$): the probability of correctly rejecting the null hypothesis when the alternative hypothesis is true (i.e., avoiding a Type II error).
+
+(4) **Variability** ($\sigma$): the standard deviation or variance of the outcome measure in the population.
+
+(5) **Study design**: the specific design of the study (parallel groups, crossover, cluster randomized, etc.), which affects the test statistics.
+
+(6) **Allocation Ratio**: the ratio of participants assigned to different treatment groups.
+
+(7) **Dropout Rate**: the expected proportion of participants who may drop out or be lost to follow-up during the study. (?)
+
+## Incidence and Prevalence
+
+-   **Incidence**: a measure for new cases of a disease, injury, or specific event occur within a population at risk over a specific period.
+
+    -    **Incidence rate**: the probability of developing a disease during a given period. It focuses solely on new cases.
+
+    <!-- -->
+
+    -   $$
+        \text{Incidence} = \frac{\text{Number of New Cases}}{\text{Total Person-Time at risk}}.
+        $$
+
+    -   Numerator: Number of new cases identified during a specific time period.
+
+    -   Denominator: The sum of the time each person was observed, known as person-time, representing total time the population was at risk.
+
+    -   Answer questions such as: "How many people acquired the disease \[during a specific time period\]"
+
+        Usage: Incidence rates help public health officials monitor disease outbreaks, evaluate interventions, and predict future trends.
+
+    -   
+
+-   **Prevalence**: the proportion of a particular population found to be affected by a medical condition (typically a disease or a risk factor such as smoking or seatbelt use) at a specific time.
+
+    -   Prevalence is proportional to the product of the incidence and average duration of the disease. Inparticular, when the prevalence is low (\<10%) and the duration is constant (or an average can be taken), the relationship can be expressed as:
+
+    -   $$
+        \text{Prevalence} = \text{Incidence} \times \text{Duration}.
+        $$
+
+    -   Answer questions such as: "How many people have this disease right now?" or "How many people have had this disease during this time period?"
+
+## Risk and Hazard
+
+-   **Risk**: an at-risk population is the population is

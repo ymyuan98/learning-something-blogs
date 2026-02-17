@@ -1,0 +1,12 @@
+---
+title: "Causal Inference 2: Integrated analysis of RCT and Real-World Evidence (RWE) based on Causal Inference"
+date: today
+format: html
+---
+
+
+> Review: generalizability and transportability in causal inference? 
+
+see [A Review on Generalizability and Transportability](https://github.com/ymyuan98/reading-notes/blob/main/degtiar_2023_generalizability/review-generalizability.qmd)
+
+
