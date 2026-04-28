@@ -17,7 +17,8 @@ Tutorial websites: https://slurm.schedmd.com/tutorials.html
   - `scancel -t PD`: cancel all your pending jobs
 
 - `squeue`: reports the states of jobs or job steps. It has a wide variety of filtering, sorting and formatting options. 
-  - `squeue -u myuan`: reports the states of jobs under username
+  - `squeue -u myuan`: reports the status of jobs under username
+  - `squeue -n <JobName>`: reports the status of jobs with <JobName>
 
 - `sinfo`: reports the state of partitions and nodes managed by Slurm. It has a wide variety of filtering, sorting and formatting options.
   - `sinfo --Node --long`: view the details of this cluster
